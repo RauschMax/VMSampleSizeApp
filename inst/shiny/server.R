@@ -55,10 +55,10 @@ shinyServer(function(input, output, session) {
 
   output$table_nTask <- renderTable({
     dataset_nTask()
-  }, bordered = TRUE)
+  }, bordered = TRUE, striped = TRUE, width = 200)
 
   output$table_nResp <- renderTable({
     dataset_nResp()
-  }, bordered = TRUE)
+  }, bordered = TRUE, striped = TRUE, width = 200)
 
 })
