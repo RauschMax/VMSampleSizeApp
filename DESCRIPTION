@@ -1,4 +1,4 @@
-Package: VM_SampleSizeApp
+Package: VMSampleSizeApp
 Type: Package
 Title: ValueManager Sample Size Calculator
 Version: 0.1.0
