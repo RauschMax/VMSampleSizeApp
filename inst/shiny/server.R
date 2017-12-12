@@ -8,7 +8,7 @@ shinyServer(function(input, output, session) {
     nAtt <- as.integer(input$nAtt)
     lapply(1:(nAtt), function(i) {
       div(style="font-size:8px; display:inline-block",
-          numericInput(paste0("att", i), label = paste0("# Levels - Att ", i, ":"), value=4, width="83px"))
+          numericInput(paste0("att", i), label = paste0("# Levels - Att ", i, ":"), value = 4, width = "59px"))
     })
   })
 
@@ -25,7 +25,7 @@ shinyServer(function(input, output, session) {
                   "Category Buyers" = 400,
                   "Specific homogeneus target group" = 200)
 
-    DF <- ifelse(input$SelIn == "pricer", input$SKU + input$price * input$SKU, sum(nlev) - length(nlev))
+    DF <- ifelse(input$SelIn == "pricer", input$price * input$SKU, sum(nlev) - length(nlev))
     DiffPerc <- 1 - (input$PercFixed / 100)
     a_task <- ifelse(input$nConc > 5, input$nConc - 1, switch(input$nConc, 1, 2, 2.5, 3, 4))
     a_final <- a_task - input$nFixed
@@ -51,7 +51,7 @@ shinyServer(function(input, output, session) {
                   "Category Buyers" = 400,
                   "Specific homogeneus target group" = 200)
 
-    DF <- ifelse(input$SelIn == "pricer", input$SKU + input$price * input$SKU, sum(nlev) - length(nlev))
+    DF <- ifelse(input$SelIn == "pricer", input$price * input$SKU, sum(nlev) - length(nlev))
     DiffPerc <- 1 - (input$PercFixed / 100)
     a_task <- ifelse(input$nConc > 5, input$nConc - 1, switch(input$nConc, 1, 2, 2.5, 3, 4))
     a_final <- a_task - input$nFixed
