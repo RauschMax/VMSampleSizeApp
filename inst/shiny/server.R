@@ -7,7 +7,7 @@ shinyServer(function(input, output, session) {
   output$variants <- renderUI({
     nAtt <- as.integer(input$nAtt)
     lapply(1:(nAtt), function(i) {
-      div(style="font-size:8px; display:inline-block",
+      div(style = "font-size:8px; display:inline-block",
           numericInput(paste0("att", i), label = paste0("# Levels - Att ", i, ":"), value = 4, width = "59px"))
     })
   })
@@ -34,7 +34,7 @@ shinyServer(function(input, output, session) {
     nTasks_cal <- (HLI * DF) / (DiffPerc * a_final * input$nResp)
 
     result <- data.frame(as.integer(round(nTasks_cal, 0)))
-    colnames(result) <- c("Number of Tasks")
+    colnames(result) <- "Number of Tasks"
     result
   })
 
@@ -59,7 +59,7 @@ shinyServer(function(input, output, session) {
     nResp_cal <- (HLI * DF) / (DiffPerc * a_final * input$nTasks)
 
     result <- data.frame(as.integer(round(nResp_cal, 0)))
-    colnames(result) <- c("Sample Size")
+    colnames(result) <- "Sample Size"
     result
   })
 
@@ -111,20 +111,7 @@ shinyServer(function(input, output, session) {
     updateNumericInput(session, "nRespOut", value = ifelse(x == "nresp", dataset_nResp(), dataset_nResp()))
 
     updateNumericInput(session, "nTasksOut", value = ifelse(x == "ntasks", dataset_nTask(), dataset_nResp()))
-  }, ignoreInit = TRUE)
-
-  # output$notificationMenu <- renderMenu({
-  #   # Code to generate each of the messageItems here, in a list. This assumes
-  #   # that messageData is a data frame with two columns, 'from' and 'message'.
-  #   notificationData <- data.frame(message = NULL, status = NULL)
-  #
-  #   if (input$HLI == "Specific homogeneus target group") notificationData <- data.frame(message = "Target is assumed to be so homogeneous that no subgroup analysis is required.", status = "danger")
-  #
-  #   nots <- apply(notificationData, 1, function(row) {
-  #     notificationItem(text = row[["message"]], status = row[["status"]])
-  #   })
-  #
-  #   dropdownMenu(type = "notifications", .list = nots)
-  # })
+  },
+  ignoreInit = TRUE)
 
 })
