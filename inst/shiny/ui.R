@@ -29,22 +29,25 @@ dashboardPage(
           radioButtons("SelIn", NULL, c("ValueDriver" = "driver", "ValuePricer" = "pricer"),
                        selected = NULL, inline = TRUE, width = NULL),
           conditionalPanel(condition = "input.SelIn == 'driver'",
-                           numericInput("nAtt", label = "Enter Number of Attributes", value="5", min=1, width="425px"),
+                           numericInput("nAtt", label = "Enter Number of Attributes", value = "5",
+                                        min = 1, width = "425px"),
                            uiOutput("variants")
           ),
           conditionalPanel(condition = "input.SelIn == 'pricer'",
-                           numericInput("SKU", label = "Enter number of SKUs/products:", value="20", min=2, width="425px"),
-                           numericInput("price", label = "Enter number of prices per SKU/product:", value="5", min=1, width="425px")
+                           numericInput("SKU", label = "Enter number of SKUs/products:",
+                                        value = "20", min = 2, width = "425px"),
+                           numericInput("price", label = "Enter number of prices per SKU/product:",
+                                        value = "5", min = 1, width = "425px")
           )
       ),
       box(width = 3, title = "Settings", status = "success", solidHeader = TRUE,
-          numericInput("nFixed", label = "Number of fixed alternatives", value="1", min=0),
-          numericInput("PercFixed", label = "% of fixed alternative expected", value="25", min=1),
-          numericInput("nConc", label = "Number of concepts per task (incl. Fixed)", value="4", min=1),
+          numericInput("nFixed", label = "Number of fixed alternatives", value = "1", min = 0),
+          numericInput("PercFixed", label = "% of fixed alternative expected", value = "25", min = 1),
+          numericInput("nConc", label = "Number of concepts per task (incl. Fixed)", value = "4", min = 1),
           selectInput('HLI', 'Level of Heterogeneity', c("General Population",
                                                          "Category Buyers",
                                                          "Specific homogeneus target group"),
-                      selectize=TRUE),
+                      selectize = TRUE),
           conditionalPanel(condition = "input.HLI == 'Specific homogeneus target group'",
                            infoBoxOutput("warning", width = NULL)
           )
@@ -53,12 +56,12 @@ dashboardPage(
           radioButtons("SelOutput", "Choose your output:", c("Number of Tasks" = "ntasks", "Sample size" = "nresp"),
                        selected = NULL, inline = TRUE, width = NULL),
           conditionalPanel(condition = "input.SelOutput == 'nresp'",
-                           numericInput("nTasks", label = "Number of tasks per respondent", value="12", min=0),
+                           numericInput("nTasks", label = "Number of tasks per respondent", value = "12", min = 0),
                            tags$hr(),
                            valueBoxOutput("nRespBox", width = NULL)
           ),
           conditionalPanel(condition = "input.SelOutput == 'ntasks'",
-                           numericInput("nResp", label = "Sample size", value="500", min=0),
+                           numericInput("nResp", label = "Sample size", value = "500", min = 0),
                            tags$hr(),
                            valueBoxOutput("nTaskBox", width = NULL)
           )
