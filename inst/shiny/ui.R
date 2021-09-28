@@ -8,7 +8,7 @@ dashboardPage(
   ####Header####
   #Title is Kantar Logo - DO NOT REMOVE
   header = dashboardHeader(
-    title = tags$img(src = 'logo.svg')
+    title = tags$img(src = 'bms_11b_vektor.png', style = 'height:90%;')
   ),
 
   ####Sidebar####
@@ -22,7 +22,8 @@ dashboardPage(
 
   ####Body####
   body = dashboardBody(
-    tags$head(tags$style(HTML('.box {min-height: 385px;}'))),
+    tags$head(tags$style(HTML('.box {min-height: 385px;}
+                               .logo {text-align:left !important;}'))),
     # tags$body(tags$style(HTML('body {width: 1100px;}'))),
     fluidRow(
       box(width = 3, title = "Parameters", status = "primary", solidHeader = TRUE,
