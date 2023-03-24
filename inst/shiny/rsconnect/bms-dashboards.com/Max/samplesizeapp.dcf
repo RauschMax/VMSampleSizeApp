@@ -1,0 +1,13 @@
+name: samplesizeapp
+title: SampleSizeApp
+username: Max
+account: Max
+server: bms-dashboards.com
+hostUrl: https://bms-dashboards.com/__api__
+appId: 7
+bundleId: 49
+url: https://bms-dashboards.com/content/8e7f654f-f289-4fa5-8ae3-c5df8c6fbebd/
+when: 1679669707.88878
+lastSyncTime: 1679669707.88879
+asMultiple: FALSE
+asStatic: FALSE

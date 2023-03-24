@@ -77,12 +77,12 @@ shinyServer(function(input, output, session) {
     nParams <- ifelse(input$SelIn == "pricer", input$price * input$SKU, sum(nlev) - length(nlev))
 
     nConc <- input$nConc
-    nSample <- input$nResp
+    nSample <- input$nRespBurn
     het <- switch(input$HLI,
                   "General Population" = 2.5,
                   "Category Buyers" = 2,
                   "Specific homogeneus target group" = 1)
-    nTasks <- input$nTasks
+    nTasks <- input$nTasksBurn
 
     sparseness <- nConc * ((log(nSample)) / (nParams * het)) * nTasks / 100
 
@@ -118,7 +118,7 @@ shinyServer(function(input, output, session) {
   output$nBurnBox <- renderValueBox({
     valueBox(
       dataset_nBurn(), "burn-in draws recommended", icon = icon("fire"),
-      color = "red"
+      color = "maroon"
     )
   })
 

@@ -68,8 +68,8 @@ dashboardPage(
                            valueBoxOutput("nTaskBox", width = NULL)
           ),
           conditionalPanel(condition = "input.SelOutput == 'nBurnIn'",
-                           numericInput("nTasks", label = "Number of tasks per respondent", value = "12", min = 0),
-                           numericInput("nResp", label = "Sample size", value = "2000", min = 0),
+                           numericInput("nTasksBurn", label = "Number of tasks per respondent", value = "12", min = 0),
+                           numericInput("nRespBurn", label = "Sample size", value = "2000", min = 0),
                            tags$hr(),
                            valueBoxOutput("nBurnBox", width = NULL)
           )
