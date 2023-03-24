@@ -27,7 +27,7 @@ dashboardPage(
     # tags$body(tags$style(HTML('body {width: 1100px;}'))),
     fluidRow(
       box(width = 3, title = "Parameters", status = "primary", solidHeader = TRUE,
-          radioButtons("SelIn", NULL, c("ValueDriver" = "driver", "ValuePricer" = "pricer"),
+          radioButtons("SelIn", NULL, c("Feature Conjoint" = "driver", "Price Only DCM" = "pricer"),
                        selected = NULL, inline = TRUE, width = NULL),
           conditionalPanel(condition = "input.SelIn == 'driver'",
                            numericInput("nAtt", label = "Enter Number of Attributes", value = "5",
