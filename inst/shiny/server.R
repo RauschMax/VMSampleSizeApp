@@ -4,18 +4,21 @@ library(shiny)
 
 ####Server####
 shinyServer(function(input, output, session) {
+
   output$variants <- renderUI({
+
     nAtt <- as.integer(input$nAtt)
     lapply(1:(nAtt), function(i) {
-      div(style = "font-size:8px; display:inline-block",
-          numericInput(paste0("att", i), label = paste0("# Levels - Att ", i, ":"), value = 4, width = "59px"))
+      div(style = "font-size:12px; display:inline-block",
+          numericInput(paste0("att", i), label = paste0("# Levels - Att ", i, ":"), value = 4, width = "87px"))
     })
+
   })
 
   dataset_nTask <- reactive({
-    if (input$SelIn == "driver"){
+    if (input$SelIn == "driver") {
       nlev <- NULL
-      for (i in 1:as.integer(input$nAtt)){
+      for (i in 1:as.integer(input$nAtt)) {
         nlev <- c(nlev, input[[paste0("att", i)]])
       }
     }
@@ -39,9 +42,9 @@ shinyServer(function(input, output, session) {
   })
 
   dataset_nResp <- reactive({
-    if (input$SelIn == "driver"){
+    if (input$SelIn == "driver") {
       nlev <- NULL
-      for (i in 1:as.integer(input$nAtt)){
+      for (i in 1:as.integer(input$nAtt)) {
         nlev <- c(nlev, input[[paste0("att", i)]])
       }
     }
@@ -63,6 +66,33 @@ shinyServer(function(input, output, session) {
     result
   })
 
+  dataset_nBurn <- reactive({
+    if (input$SelIn == "driver") {
+      nlev <- NULL
+      for (i in 1:as.integer(input$nAtt)) {
+        nlev <- c(nlev, input[[paste0("att", i)]])
+      }
+    }
+
+    nParams <- ifelse(input$SelIn == "pricer", input$price * input$SKU, sum(nlev) - length(nlev))
+
+    nConc <- input$nConc
+    nSample <- input$nResp
+    het <- switch(input$HLI,
+                  "General Population" = 2.5,
+                  "Category Buyers" = 2,
+                  "Specific homogeneus target group" = 1)
+    nTasks <- input$nTasks
+
+    sparseness <- nConc * ((log(nSample)) / (nParams * het)) * nTasks / 100
+
+    calcBurnIn <- 2000 / sparseness
+
+    ceiling(calcBurnIn / 10000) * 10000
+
+
+  })
+
   # output$table_nTask <- renderTable({
   #   dataset_nTask()
   # }, bordered = TRUE, striped = TRUE, width = 200)
@@ -70,7 +100,7 @@ shinyServer(function(input, output, session) {
   output$nTaskBox <- renderValueBox({
     valueBox(
       dataset_nTask(), "tasks per respondent", icon = icon("list"),
-      color = "purple"
+      color = "blue"
     )
   })
 
@@ -82,6 +112,13 @@ shinyServer(function(input, output, session) {
     valueBox(
       dataset_nResp(), "respondents", icon = icon("users"),
       color = "purple"
+    )
+  })
+
+  output$nBurnBox <- renderValueBox({
+    valueBox(
+      dataset_nBurn(), "burn-in draws recommended", icon = icon("fire"),
+      color = "red"
     )
   })
 
@@ -103,15 +140,15 @@ shinyServer(function(input, output, session) {
     updateNumericInput(session, "PercFixed", value = ifelse(x == "pricer", "5", "25"))
   })
 
-  observeEvent(input$SelOutput, {
-    # We'll use the input$controller variable multiple times, so save it as x
-    # for convenience.
-    x <- input$SelOutput
-
-    updateNumericInput(session, "nRespOut", value = ifelse(x == "nresp", dataset_nResp(), dataset_nResp()))
-
-    updateNumericInput(session, "nTasksOut", value = ifelse(x == "ntasks", dataset_nTask(), dataset_nResp()))
-  },
-  ignoreInit = TRUE)
+  # observeEvent(input$SelOutput, {
+  #   # We'll use the input$controller variable multiple times, so save it as x
+  #   # for convenience.
+  #   x <- input$SelOutput
+  #
+  #   updateNumericInput(session, "nRespOut", value = ifelse(x == "nresp", dataset_nResp(), dataset_nResp()))
+  #
+  #   updateNumericInput(session, "nTasksOut", value = ifelse(x == "ntasks", dataset_nTask(), dataset_nResp()))
+  # },
+  # ignoreInit = TRUE)
 
 })
